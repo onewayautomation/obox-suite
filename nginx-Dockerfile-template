@@ -1,0 +1,33 @@
+FROM nginx:alpine
+
+COPY nginx.conf.template /etc/nginx/nginx.conf.template
+COPY ./www/index.html /usr/share/nginx/html/index.html
+COPY ./www/favicon.ico /usr/share/nginx/html/favicon.ico
+COPY ./ca-certs/* /etc/ssl/certs/
+RUN mkdir -p /opt/nginx/pki
+COPY ./own-cert/nginx-cert.pem /opt/nginx/pki/
+COPY ./own-cert/nginx-key.pem /opt/nginx/pki/
+
+ENV DOLLAR="$"
+
+# Important Note: Modify also environment variables in file .env!
+
+# This is the host name used to access main menu (nginx is listening to it):
+ENV REVERSE_PROXY_HOST VALUE_REVERSE_PROXY_HOST
+
+# This is keycloak host name. 
+ENV KEYCLOAK_HOST VALUE_KEYCLOAK_HOST
+
+# the rest of host names might be used only internally and left as is.
+ENV OAUTH2PROXY_HOST VALUE_OAUTH2PROXY_HOST
+ENV OVL_HOST VALUE_OVL_HOST
+ENV DEVICE_GATEWAY_HOST VALUE_DEVICE_GATEWAY_HOST
+ENV FORGE_HOST VALUE_FORGE_HOST
+ENV INFLUXDB_HOST VALUE_INFLUXDB_HOST
+ENV GRAFANA_HOST VALUE_GRAFANA_HOST
+ENV PGADMIN_HOST VALUE_PGADMIN_HOST
+ENV EKUIPER_MANAGER_HOST VALUE_EKUIPER_MANAGER_HOST
+ENV TIMESERIESADMIN_HOST VALUE_TIMESERIESADMIN_HOST
+
+CMD envsubst < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf & nginx -g 'daemon off;'
+# | tail -f /dev/null
