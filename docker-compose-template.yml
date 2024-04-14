@@ -1,3 +1,4 @@
+# Balena supports only version 2
 version: '2'
 services:
 
@@ -162,16 +163,19 @@ services:
       - dgw_sdcard:/mnt/sdcard
       
   ovl:
-    image: 'ogamma/logger:4.0.0'
+    # Select version dev vs release. For production specific release version is recommended.
+    image: 'ogamma/logger-dev:latest'
+    #image: 'ogamma/logger:4.0.0'
     restart: always
     environment:    
 # By default configuration file ./data/config.json is used. Can be changed by environment variable:    
       - OVL_CONFIG_FILE=./data/config.json
+# Default credentials to use for the very first login. You will will asked to change the password after immediately after the first login.
 # Do not use default credentials in production!
       - OVL_USER_ID=${OVL_USER_ID}
       - OVL_USER_PASSWORD=${OVL_USER_PASSWORD}
       
-      # oauth settiggs:
+      # oauth settings:
       - OVL_AUTH_TYPE=JWT_BUILTIN
       - OVL_JWT_VERIFY=1
       - OVL_JWT_KEY_URL =iss
@@ -179,11 +183,13 @@ services:
       - OLV_JWT_ROLE_MAP_READ=ovl-read
       - OLV_JWT_ROLE_MAP_WRITE=ovl-write
       - OLV_JWT_ROLE_MAP_WRITE=ovl-admin
-    
+
+# If you want to access the OVL only via reverse proxy, remove port mapping.    
     ports:
       - "4880:4880"
     hostname: ${OVL_HOST}
     volumes:
+# Modify volume settings if you want to map to local host folder.  
 #- './data:/home/ogamma/logger/data'
       - 'ovl-data:/home/ogamma/logger/data'
     networks:

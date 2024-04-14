@@ -12,11 +12,13 @@ Main applications distributed by One-Way Automation are:
 
 Depending on your use case, you can use each of them separately, or together in any combination.
 
-Additionally, you can run other applications in the oBox Industrial PC, such as open-source products Grafana, InfluxDB, TimescaleDB, or commercial products like Ignition.
+Additionally, you can run other applications in the oBox Industrial PC, such as open-source products Grafana, InfluxDB, TimescaleDB, Grafana, or commercial products like Ignition.
 
 This folder has docker compose and other accompanying configuration files used to create and run all applications from the ``oBox Suite`` as Docker containers. While mainly they are intended to run in the ``oBox Industrial PC``, you can run them in a regular Docker engine such as Docker Desktop for Windows.
 
 Before starting containers, you will need to perform some configuration steps as described further below. For quick evaluation tests and proof of concept projects, you can skip configuration steps related to security and user authentication and authorization, as described in the Quick Start section below.
+
+Note: This repository is intended to use for demo and learning purposes. It can be taken as a base for production configuration, but container image versions and security related settings must be revised before using in production.
 
 # Quick Start with default settings.
 
