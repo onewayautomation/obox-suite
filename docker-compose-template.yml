@@ -74,7 +74,8 @@ services:
       
     extra_hosts:
       - "host.docker.internal:host-gateway"  
-
+    depends_on:
+      - oauth2proxy
   oauth2proxy:
     build: ./oauth2proxy
     command:
@@ -126,7 +127,6 @@ services:
 
     depends_on:
       - redis   
-      - nginx
     ports:
       - 4180:4180 
       - 8080:8080

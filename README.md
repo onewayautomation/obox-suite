@@ -178,8 +178,16 @@ Login at the keycloak web page (can be accessed on port 8443). Login credentials
 
 - Click on the ``Clients`` link in the left side panel. As a result, the ``Clients`` panel will be opened in the the main screen area.
 - Click on the button ``Create client``  
-- In the ``Settings`` tab, fill the fields: ``Client ID``, ``Name``, ``Admin URL`` (for example, ``https://keycloak.testco.opcfy.io:8443/admin``). Turn on options ``Capability Config / Clinet Authentication`` and ``Authorization``, set ``Authentication flow`` to ``Standard``. 
+- In the ``Settings`` tab, fill the fields: ``Client ID``, ``Name``, ``Admin URL`` (for example, ``https://keycloak.test-co.opcfy.io:8443/admin``). Turn on options ``Capability Config / Client Authentication`` and ``Authorization``, set ``Authentication flow`` to ``Standard``. 
+- Set the field ``Admin URL`` to ``https://keycloak.test-co.opcfy.io:8443/admin``.
 - In the ``Credentials`` tab, set option ``Client Authenticator`` to ``Client ID and Secret``. 
+- ``Advanced`` tab:
+    - ``Access token signature algorithm`` field - set to ``RS256``.
+		- ``Advanced settings / Access token lifespan``: set to 15 minutes. 
+- ``Settings`` tab
+    - ``Access settgins``
+    		- ``Valid redirect URIs`` - set to ``*`` (without forward slash symbol).
+				- ``Web origins`` - also set to ``*``.
 - In the docker-compose file configure oauth2proxy container settings so it could connect to the keycloak service:
   
 	- Copy value of the field ``Client Secret``. In the ``oauth2proxy`` service, set environment variable ``OAUTH2_PROXY_CLIENT_SECRET`` to this value. 
@@ -187,6 +195,14 @@ Login at the keycloak web page (can be accessed on port 8443). Login credentials
 	- Restart container to apply settings.
 		
 - Roles assigned to the logged in users should be configured as described in the User Manual: https://onewayautomation.com/visual-logger-docs/html/configure.html#versions-4-0-0-or-newer
+
+	Essentially, to create roles and assign them to the user:
+	
+	- To create roles, on the left side panel select ``Realm roles``, click on ``Create role`` button, and create roles ``ovl-admin``, ``ovl-read``, ``ovl-write``.
+	- To assign roles to the specific user, select ``Users`` in the left side panel, select desired user (by defautl there is one user ``admin``). Click on the user record, select tab ``Role mapping``, click ``Assign role`` button, select roles to assign, and click on the ``Assign`` button.
+	- Also assign roles for the client application: in the left side panel select ``Clients``, select the client (by default ``opcfy``), open ``Roles`` tab, and add roles as required (``ovl-read`` and optionally ``ovl-write`` or ``ovl-admin``).
+
+- Configure users: enter email address field (version 4.0.0 has issue if user record has empty ``email`` field).
   
 ## Configuring ``tunnel`` service.
 
