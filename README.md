@@ -90,7 +90,7 @@ Note: steps below can look little bit complicated, later these steps will be aut
   
 ### Create the TLS certificate signed by OPC UA Certificate Authority.  
 
-- Open OPC UA Registration Authority web page https://opcua.ca/ejbca/ra/
+- Open OPC UA Registration Authority web page https://public.opcua.ca/ejbca/ra/  Note: The URL must have trailing forward slash symbol at the end.
 
 	Note: this certificate authority is used for test purposes only. For production, use your own PKI infrastructure to manage certificates. If you need help on setting up your own PKI, please contact support@onewayautomation.com.
 
@@ -114,7 +114,7 @@ Note: steps below can look little bit complicated, later these steps will be aut
 
 The steps are similar to generating of the certificate for nginx service.
 
-- Open OPC UA Registration Authority web page https://opcua.ca/ejbca/ra/
+- Open OPC UA Registration Authority web page https://public.opcua.ca/ejbca/ra/
 
 	Note: this certificate authority is used for test purposes only. For production, use your own PKI infrastructure to manage certificates. If you need help on setting up your own PKI, please contact support@onewayautomation.com.
 
@@ -243,7 +243,7 @@ Make sure that host name for the reverse proxy and the ``keycloak`` service can 
 
 ## Trust to OPC UA CA certificates.
 
-If browser warns that certificates are not trusted, you can download OPC UA Root CA certificate and OPC UA Issuing CA Certificate from this link: ``https://opcua.ca/ejbca/ra/cas.xhtml``. And then import the root certificate into the trusted root certificates location of the OS, the second certificate - into trusted intermediate certificates location.
+If browser warns that certificates are not trusted, you can download OPC UA Root CA certificate and OPC UA Issuing CA Certificate from this link: ``https://public.opcua.ca/ejbca/ra/cas.xhtml``. And then import the root certificate into the trusted root certificates location of the OS, the second certificate - into trusted intermediate certificates location.
 
 ## Licensing of oBox applications.
 
